@@ -65,167 +65,171 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var MessageComponent = function (_React$Component) {
-		_inherits(MessageComponent, _React$Component);
+	    _inherits(MessageComponent, _React$Component);
 
-		function MessageComponent(props) {
-			_classCallCheck(this, MessageComponent);
+	    function MessageComponent(props) {
+	        _classCallCheck(this, MessageComponent);
 
-			var _this = _possibleConstructorReturn(this, (MessageComponent.__proto__ || Object.getPrototypeOf(MessageComponent)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (MessageComponent.__proto__ || Object.getPrototypeOf(MessageComponent)).call(this, props));
 
-			_this.state = {};
+	        _this.state = {};
 
-			_this.state = {
-				nameValue: '',
-				nameHasError: false,
-				emailValue: '',
-				emailHasError: false,
-				messageValue: '',
-				messageHasError: false
-			};
+	        _this.state = {
+	            nameValue: '',
+	            nameHasError: false,
+	            emailValue: '',
+	            emailHasError: false,
+	            messageValue: '',
+	            messageHasError: false
+	        };
 
-			_this.handleNameChange = _this.handleNameChange.bind(_this);
-			_this.handleEmailChange = _this.handleEmailChange.bind(_this);
-			_this.handleMessageChange = _this.handleMessageChange.bind(_this);
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			return _this;
-		}
+	        _this.handleNameChange = _this.handleNameChange.bind(_this);
+	        _this.handleEmailChange = _this.handleEmailChange.bind(_this);
+	        _this.handleMessageChange = _this.handleMessageChange.bind(_this);
+	        _this.handleSubmit = _this.handleSubmit.bind(_this);
+	        return _this;
+	    }
 
-		_createClass(MessageComponent, [{
-			key: 'isValidName',
-			value: function isValidName(name) {
-				return name && name.trim() !== "" ? true : false;
-			}
-		}, {
-			key: 'isValidEmail',
-			value: function isValidEmail(email) {
-				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-				return re.test(email);
-			}
-		}, {
-			key: 'isValidMessage',
-			value: function isValidMessage(message) {
-				return message && message.trim() !== "" ? true : false;
-			}
-		}, {
-			key: 'handleSubmit',
-			value: function handleSubmit(event) {
-				event.preventDefault();
+	    _createClass(MessageComponent, [{
+	        key: 'isValidName',
+	        value: function isValidName(name) {
+	            return name && name.trim() !== "" ? true : false;
+	        }
+	    }, {
+	        key: 'isValidEmail',
+	        value: function isValidEmail(email) {
+	            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	            return re.test(email);
+	        }
+	    }, {
+	        key: 'isValidMessage',
+	        value: function isValidMessage(message) {
+	            return message && message.trim() !== "" ? true : false;
+	        }
+	    }, {
+	        key: 'handleSubmit',
+	        value: function handleSubmit(event) {
+	            event.preventDefault();
 
-				// Validate form data
-				if (!this.isValidName(this.state.nameValue)) {
-					this.setState({
-						nameHasError: true
-					});
-					return;
-				} else {
-					this.setState({
-						nameHasError: false
-					});
-				}
+	            // Validate form data
+	            if (!this.isValidName(this.state.nameValue)) {
+	                this.setState({
+	                    nameHasError: true
+	                });
+	                return;
+	            } else {
+	                this.setState({
+	                    nameHasError: false
+	                });
+	            }
 
-				if (!this.isValidEmail(this.state.emailValue)) {
-					this.setState({
-						emailHasError: true
-					});
-					return;
-				} else {
-					this.setState({
-						emailHasError: false
-					});
-				}
+	            if (!this.isValidEmail(this.state.emailValue)) {
+	                this.setState({
+	                    emailHasError: true
+	                });
+	                return;
+	            } else {
+	                this.setState({
+	                    emailHasError: false
+	                });
+	            }
 
-				if (!this.isValidMessage(this.state.messageValue)) {
-					this.setState({
-						messageHasError: true
-					});
-					return;
-				} else {
-					this.setState({
-						messageHasError: false
-					});
-				}
+	            if (!this.isValidMessage(this.state.messageValue)) {
+	                this.setState({
+	                    messageHasError: true
+	                });
+	                return;
+	            } else {
+	                this.setState({
+	                    messageHasError: false
+	                });
+	            }
 
-				// Send data to back end
+	            // Send data to back end
+	            var messageData = {
+	                name: this.state.nameValue,
+	                email: this.state.emailValue,
+	                message: this.state.messageValue
+	            };
+	        }
+	    }, {
+	        key: 'handleNameChange',
+	        value: function handleNameChange(event) {
+	            this.setState({
+	                nameValue: event.target.value
+	            });
+	        }
+	    }, {
+	        key: 'handleEmailChange',
+	        value: function handleEmailChange(event) {
+	            this.setState({
+	                emailValue: event.target.value
+	            });
+	        }
+	    }, {
+	        key: 'handleMessageChange',
+	        value: function handleMessageChange(event) {
+	            this.setState({
+	                messageValue: event.target.value
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'form',
+	                { onSubmit: this.handleSubmit, noValidate: true },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: this.state.nameHasError ? 'form-group has-error' : 'form-group' },
+	                    _react2.default.createElement(
+	                        'label',
+	                        { 'for': 'name' },
+	                        'Name:*'
+	                    ),
+	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'name', value: this.state.nameValue, onChange: this.handleNameChange }),
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'help-block', style: !this.state.nameHasError ? { display: 'none' } : { visibility: 'visible' } },
+	                        'Bitte Vornamen eingeben.'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: this.state.emailHasError ? 'form-group has-error' : 'form-group' },
+	                    _react2.default.createElement(
+	                        'label',
+	                        { 'for': 'email' },
+	                        'Email:*'
+	                    ),
+	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'email', value: this.state.emailValue, onChange: this.handleEmailChange }),
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'help-block', style: !this.state.emailHasError ? { display: 'none' } : { visibility: 'visible' } },
+	                        'Bitte eine korrekte Email Adresse eingeben.'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: this.state.messageHasError ? 'form-group has-error' : 'form-group' },
+	                    _react2.default.createElement(
+	                        'label',
+	                        { 'for': 'message' },
+	                        'Message:*'
+	                    ),
+	                    _react2.default.createElement('textarea', { className: 'form-control', rows: '5', id: 'message', value: this.state.messageValue, onChange: this.handleMessageChange }),
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'help-block', style: !this.state.messageHasError ? { display: 'none' } : { visibility: 'visible' } },
+	                        'Bitte eine Nachricht eingeben.'
+	                    )
+	                ),
+	                _react2.default.createElement('input', { type: 'submit', className: 'btn btn-default', value: 'Abschicken' })
+	            );
+	        }
+	    }]);
 
-			}
-		}, {
-			key: 'handleNameChange',
-			value: function handleNameChange(event) {
-				this.setState({
-					nameValue: event.target.value
-				});
-			}
-		}, {
-			key: 'handleEmailChange',
-			value: function handleEmailChange(event) {
-				this.setState({
-					emailValue: event.target.value
-				});
-			}
-		}, {
-			key: 'handleMessageChange',
-			value: function handleMessageChange(event) {
-				this.setState({
-					messageValue: event.target.value
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'form',
-					{ onSubmit: this.handleSubmit, noValidate: true },
-					_react2.default.createElement(
-						'div',
-						{ className: this.state.nameHasError ? 'form-group has-error' : 'form-group' },
-						_react2.default.createElement(
-							'label',
-							{ 'for': 'name' },
-							'Name:'
-						),
-						_react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'name', value: this.state.nameValue, onChange: this.handleNameChange }),
-						_react2.default.createElement(
-							'p',
-							{ className: 'help-block', style: !this.state.nameHasError ? { display: 'none' } : { visibility: 'visible' } },
-							'Bitte Vornamen eingeben.'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: this.state.emailHasError ? 'form-group has-error' : 'form-group' },
-						_react2.default.createElement(
-							'label',
-							{ 'for': 'email' },
-							'Email:'
-						),
-						_react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'email', value: this.state.emailValue, onChange: this.handleEmailChange }),
-						_react2.default.createElement(
-							'p',
-							{ className: 'help-block', style: !this.state.emailHasError ? { display: 'none' } : { visibility: 'visible' } },
-							'Bitte eine korrekte Email Adresse eingeben.'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: this.state.messageHasError ? 'form-group has-error' : 'form-group' },
-						_react2.default.createElement(
-							'label',
-							{ 'for': 'message' },
-							'Message:'
-						),
-						_react2.default.createElement('textarea', { className: 'form-control', rows: '5', id: 'message', value: this.state.messageValue, onChange: this.handleMessageChange }),
-						_react2.default.createElement(
-							'p',
-							{ className: 'help-block', style: !this.state.messageHasError ? { display: 'none' } : { visibility: 'visible' } },
-							'Bitte eine Nachricht eingeben.'
-						)
-					),
-					_react2.default.createElement('input', { type: 'submit', className: 'btn btn-default', value: 'Abschicken' })
-				);
-			}
-		}]);
-
-		return MessageComponent;
+	    return MessageComponent;
 	}(_react2.default.Component);
 
 	_reactDom2.default.render(_react2.default.createElement(MessageComponent, null), document.getElementById('root'));
