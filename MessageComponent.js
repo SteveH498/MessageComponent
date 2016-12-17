@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 
 class MessageComponent extends React.Component {
 
+
     constructor(props) {
         super(props);
-        this.state = {};
 
         this.state = {
+            receiverValue: 'CaroSteve',
             nameValue: '',
             nameHasError: false,
             emailValue: '',
@@ -20,6 +21,7 @@ class MessageComponent extends React.Component {
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleReceiverChange = this.handleReceiverChange.bind(this);
     }
 
 
@@ -75,15 +77,31 @@ class MessageComponent extends React.Component {
 
         // Send data to back end
         var messageData = {
-        	name: this.state.nameValue,
-        	email: this.state.emailValue,
-        	message: this.state.messageValue
+            receiver: this.state
+.receiverValue,
+            name: this.state.nameValue,
+            email: this.state.emailValue,
+            message: this.state.messageValue
         };
+
+
+        fetch("/message", {
+            method: 'POST',
+            credentials: 'include' ,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(messageData)
+        })
 
 
     }
 
+    handleReceiverChange(event) {
+        this.setState({ receiverValue: event.target.value });
 
+    }
     handleNameChange(event) {
         this.setState({
             nameValue: event.target.value
@@ -105,25 +123,35 @@ class MessageComponent extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} noValidate>
-		   <div className={this.state.nameHasError ? 'form-group has-error' : 'form-group'} >
-			  <label for="name">Name:*</label>
-			  <input type="text" className="form-control" id="name"  value={this.state.nameValue} onChange={this.handleNameChange}></input>
-			   <p className="help-block" style={!this.state.nameHasError ? { display: 'none' } : { visibility: 'visible' } }>Bitte Vornamen eingeben.</p>
-			</div>
-			<div className={this.state.emailHasError ? 'form-group has-error' : 'form-group'}>
-			  <label for="email">Email:*</label>
-			  <input type="email" className="form-control" id="email" value={this.state.emailValue} onChange={this.handleEmailChange}></input>
-			  <p className="help-block" style={!this.state.emailHasError ?  { display: 'none' } : { visibility: 'visible' } }>Bitte eine korrekte Email Adresse eingeben.</p>
-			</div>
-			<div className={this.state.messageHasError ? 'form-group has-error' : 'form-group'}>
-				<label for="message">Message:*</label>
-				<textarea className="form-control" rows="5" id="message" value={this.state.messageValue} onChange={this.handleMessageChange}></textarea>
-				<p className="help-block" style={!this.state.messageHasError ?  { display: 'none' } : { visibility: 'visible' } }>Bitte eine Nachricht eingeben.</p>
-			 </div>
-			  <input type="submit" className="btn btn-default"  value="Abschicken"/>
-		</form>
+              <fieldset>
+                <legend>Wenn Ihr noch Fragen habt, schickt uns eine Nachricht</legend>
+                    <div className='form-group'>
+                        <label for="receiver">An:*</label>
+                        <select className="form-control" id="receiver" value={this.state.receiverValue} onChange={this.handleReceiverChange}>
+                            <option value="CaroSteve">Carolin und Stefan</option>
+                            <option value="Trauzeugen">Marion und Berni (Trauzeugen)</option>
+                        </select>
+                    </div>
+                   <div className={this.state.nameHasError ? 'form-group has-error' : 'form-group'} >
+                      <label for="name">Name:*</label>
+                      <input type="text" className="form-control" id="name"  value={this.state.nameValue} onChange={this.handleNameChange}></input>
+                       <p className="help-block" style={!this.state.nameHasError ? { display: 'none' } : { visibility: 'visible' } }>Bitte Vornamen eingeben.</p>
+                    </div>
+                    <div className={this.state.emailHasError ? 'form-group has-error' : 'form-group'}>
+                      <label for="email">Email:*</label>
+                      <input type="email" className="form-control" id="email" value={this.state.emailValue} onChange={this.handleEmailChange}></input>
+                      <p className="help-block" style={!this.state.emailHasError ?  { display: 'none' } : { visibility: 'visible' } }>Bitte eine korrekte Email Adresse eingeben.</p>
+                    </div>
+                    <div className={this.state.messageHasError ? 'form-group has-error' : 'form-group'}>
+                        <label for="message">Nachricht:*</label>
+                        <textarea className="form-control" rows="5" id="message" value={this.state.messageValue} onChange={this.handleMessageChange}></textarea>
+                        <p className="help-block" style={!this.state.messageHasError ?  { display: 'none' } : { visibility: 'visible' } }>Bitte eine Nachricht eingeben.</p>
+                     </div>
+                      <input type="submit" className="btn btn-default"  value="Abschicken"/>
+              </fieldset>
+            </form>
         )
     }
 }
 
-ReactDOM.render(<MessageComponent/>, document.getElementById('root'));
+ReactDOM.render(<MessageComponent/>, document.getElementById('message-container'));
