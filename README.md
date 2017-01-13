@@ -1,0 +1,1 @@
+Execute webpack command on CLI in order to build component
