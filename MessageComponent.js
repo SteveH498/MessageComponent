@@ -94,6 +94,7 @@ class MessageComponent extends React.Component {
             },
             body: JSON.stringify(messageData)
         }).then(() => {
+            
             that.setState({ submitted: true });
         }).catch(() => {
 
@@ -126,39 +127,42 @@ class MessageComponent extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="alert alert-success" role="alert" style={!this.state.submitted ?  { display: 'none' } : { visibility: 'visible' } }>
-                  <strong>Vielen Dank!</strong> Deine Nachricht wurde erfolgreich versendet.
-                </div>
-                <form onSubmit={this.handleSubmit} style={this.state.submitted ?  { display: 'none' } : { visibility: 'visible' } } noValidate>
-                  <fieldset>
-                    <legend>Wenn Ihr noch Fragen habt, schickt uns eine Nachricht</legend>
-                        <div className='form-group'>
-                            <label for="receiver">An:*</label>
-                            <select className="form-control" id="receiver" value={this.state.receiverValue} onChange={this.handleReceiverChange}>
-                                <option value="CaroSteve">Carolin und Stefan</option>
-                                <option value="Trauzeugen">Marion und Berni (Trauzeugen)</option>
-                            </select>
-                        </div>
-                       <div className={this.state.nameHasError ? 'form-group has-error' : 'form-group'} >
-                          <label for="name">Name:*</label>
-                          <input type="text" className="form-control" id="name"  value={this.state.nameValue} onChange={this.handleNameChange}></input>
-                           <p className="help-block" style={!this.state.nameHasError ? { display: 'none' } : { visibility: 'visible' } }>Bitte Vornamen eingeben.</p>
-                        </div>
-                        <div className={this.state.emailHasError ? 'form-group has-error' : 'form-group'}>
-                          <label for="email">Email:*</label>
-                          <input type="email" className="form-control" id="email" value={this.state.emailValue} onChange={this.handleEmailChange}></input>
-                          <p className="help-block" style={!this.state.emailHasError ?  { display: 'none' } : { visibility: 'visible' } }>Bitte eine korrekte Email Adresse eingeben.</p>
-                        </div>
-                        <div className={this.state.messageHasError ? 'form-group has-error' : 'form-group'}>
-                            <label for="message">Nachricht:*</label>
-                            <textarea className="form-control" rows="10" id="message" value={this.state.messageValue} onChange={this.handleMessageChange}></textarea>
-                            <p className="help-block" style={!this.state.messageHasError ?  { display: 'none' } : { visibility: 'visible' } }>Bitte eine Nachricht eingeben.</p>
-                         </div>
-                          <input type="submit" className="btn btn-default"  value="Abschicken"/>
-                  </fieldset>
-                </form>
+        <div>
+            <div className="alert alert-success" role="alert" style={!this.state.submitted ? { display: 'none' } : { visibility: 'visible' } }>
+                <strong>Vielen Dank!</strong> Deine Nachricht wurde erfolgreich versendet.
             </div>
+            <form onSubmit={this.handleSubmit} style={this.state.submitted ? { display: 'none' } : { visibility: 'visible' } } noValidate>
+                <fieldset>
+                    <legend>Wenn Ihr noch Fragen habt, schickt uns eine Nachricht</legend>
+                    <div className="form-group">
+                        <label className="control-label">An:*</label>                    
+                        <select className="form-control" value={this.state.receiverValue} onChange={this.handleReceiverChange}>
+                            <option value="CaroSteve">Carolin und Stefan</option>
+                            <option value="Trauzeugen">Marion und Berni (Trauzeugen)</option>
+                        </select>
+                    </div>
+                    <div className={this.state.nameHasError ? 'form-group has-error' : 'form-group'}>
+                        <label className="control-label"  for="name">Name:*</label>
+                        <input className="form-control" type="text" id="name" value={this.state.nameValue} onChange={this.handleNameChange}></input>
+                        <p className="help-block" style={!this.state.nameHasError ? { display: 'none' } : { visibility: 'visible' } }>Bitte Vornamen eingeben.</p>
+                    </div>
+                    <div className={this.state.emailHasError ? 'form-group has-error' : 'form-group'}>
+                        <label className="control-label" for="email">Email:*</label>
+                        <input className="form-control" type="email" id="email" value={this.state.emailValue} onChange={this.handleEmailChange}></input>
+                        <p className="help-block" style={!this.state.emailHasError ? { display: 'none' } : { visibility: 'visible' } }>Bitte eine korrekte Email Adresse eingeben.</p>
+                    </div>
+                    <div className={ this.state.messageHasError ? 'form-group has-error' : 'form-group' }>
+                        <label className="control-label" for="message">Nachricht:*</label>
+                        <textarea className="form-control" rows="10" id="message" value={this.state.messageValue} onChange={this.handleMessageChange}></textarea>
+                        <p className="help-block" style={ !this.state.messageHasError ? { display: 'none' } : { visibility: 'visible' } }> Bitte eine Nachricht eingeben.
+                        </p>
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" className="btn btn-default" value="Abschicken" />
+                    </div>
+                </fieldset>
+            </form>
+        </div>                        
         )
     }
 }
